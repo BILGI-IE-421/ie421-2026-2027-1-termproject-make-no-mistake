@@ -4,7 +4,10 @@
 Project abstract. Should be around 180-200 words. No visuals here.
 
 ## Student Names
-Please fill this area with your names and student IDs.
+Ada Güner Nohut (122203012)
+Canberk Doğruoğlu (122202090)
+Tümer Kaan Mutlu (122203046)
+Yağız Efe (122203062)
 
 ## Files (Explain each of them with a sentence)
 - `data/`: Contains the datasets used. (Define your datasets here. The full description goes in the data card, `data/README.md`. Raw downloads stay in `data/raw/` and are not committed.)
