@@ -5,7 +5,7 @@
 **Members:** Ada Güner Nohut (122203012) · Canberk Doğruoğlu (122202090) · Tümer Kaan Mutlu (122203046) · Yağız Efe (122203062)
 
 ## The problem
-Arctic sea ice is both a sign and a driver of global warming: when the ice melts, the darker ocean underneath absorbs more sunlight then warms up even more and causes more ice to melt. Sea ice follows a cycle that repeats every year: it reaches its largest extent in March, shrinks to its smallest extent in September and satellites have recorded this cycle since late 1978. While most people simply say “the ice is shrinking” we want to find out how the yearly cycle itself is changing, and how closely the summer loss follows temperature and CO<sub>2</sub>.
+Arctic sea ice is both a sign and a driver of global warming: when the ice melts, the darker ocean underneath absorbs more sunlight then warms up even more and causes more ice to melt. Sea ice follows a cycle that repeats every year: it reaches its largest extent in March, shrinks to its smallest extent in September and satellites have recorded this cycle since late 1978. Most people stop at “the ice is shrinking” but we want to go further and find out how the yearly cycle itself is changing, and how closely the summer loss follows temperature and CO<sub>2</sub>.
 
 
 ## The data
