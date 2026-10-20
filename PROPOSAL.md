@@ -20,6 +20,6 @@ We turn the daily ice data into monthly and yearly values, and join all three so
 
 ## Our questions
 
-1. How many days per year is Arctic ice now smaller than it was in an average 1980s September?
-2. Does a warm Northern Hemisphere spring predict a low September ice minimum later that year?
-3. Has each extra 10 ppm of CO2 cost more September ice since 2000 than before?
+1. How many days per year has Arctic sea ice been below the 1980s September average, and when did that start to climb?
+2. Is a warm Northern Hemisphere spring associated with a lower September ice minimum later that year?
+3. Has September ice declined faster per 10 ppm of CO₂ since 2000 than before?
