@@ -1,24 +1,25 @@
-# Your project title
+# The Shrinking Ice: is the Arctic losing its summer?
 
-**Team:** your-team-name · **Theme:** T? Theme name
+**Team:** make-no-mistake · **Theme:** T5 Hot Planet
 
-**Members:** Name Surname (Student ID) · Name Surname (Student ID) · Name Surname (Student ID)
-
-<!-- Keep this page to one screen: you present your 3-minute pitch from it in class. Replace the italic lines, then delete this comment. -->
+**Members:** Ada Güner Nohut (122203012) · Canberk Doğruoğlu (122202090) · Tümer Kaan Mutlu (122203046) · Yağız Efe (122203062)
 
 ## The problem
 
-_Three or four sentences: what do you want to find out, and why is it worth knowing?_
+Satellites have measured how much of the Arctic Ocean is covered by sea ice every day since 1978, so sea ice is one of the clearest records we have of a warming planet. The ice follows a yearly cycle: it grows through the winter to its largest size in March and melts through the summer to its smallest size in September. Everyone knows the ice is shrinking. We want to measure how the yearly cycle itself is changing, and how closely the summer loss follows temperature and CO2. This matters because less ice means a darker ocean that absorbs more heat, so the shrinking ice is both a result of warming and a cause of more of it.
 
 ## The data
 
 | Dataset | Link | What is in it |
 |---|---|---|
-| | | |
-| | | |
+| NSIDC Sea Ice Index (G02135) | [nsidc.org/data/seaice_index](https://nsidc.org/data/seaice_index) | Daily Arctic sea-ice extent (million km²) from November 1978 to today |
+| NASA GISTEMP v4 | [data.giss.nasa.gov/gistemp](https://data.giss.nasa.gov/gistemp/) | Monthly and seasonal temperature anomalies for the globe and the Northern Hemisphere since 1880 |
+| NOAA Mauna Loa CO2 | [gml.noaa.gov/ccgg/trends/data.html](https://gml.noaa.gov/ccgg/trends/data.html) | Monthly mean atmospheric CO2 (ppm) since 1958 |
+
+We turn the daily ice data into monthly and yearly values, and join all three sources on **year and month** for 1979 onwards. That is the period when all three overlap.
 
 ## Our questions
 
-1. _First question_
-2. _Second question_
-3. _Third question_
+1. How many days per year is Arctic ice now smaller than it was in an average 1980s September?
+2. Does a warm Northern Hemisphere spring predict a low September ice minimum later that year?
+3. Has each extra 10 ppm of CO2 cost more September ice since 2000 than before?
