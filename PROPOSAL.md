@@ -8,6 +8,9 @@
 
 Satellites have measured how much of the Arctic Ocean is covered by sea ice every day since 1978, so sea ice is one of the clearest records we have of a warming planet. The ice follows a yearly cycle: it grows through the winter to its largest size in March and melts through the summer to its smallest size in September. Everyone knows the ice is shrinking. We want to measure how the yearly cycle itself is changing, and how closely the summer loss follows temperature and CO2. This matters because less ice means a darker ocean that absorbs more heat, so the shrinking ice is both a result of warming and a cause of more of it.
 
+Arctic sea ice is both a sign and a driver of global warming: when the ice melts, the darker ocean underneath absorbs more sunlight then warms up even more and causes more ice to melt. Sea ice follows a cycle that repeats every year: it reaches its largest extent in March, shrinks to its smallest extent in September and satellites have recorded this cycle since late 1978. While most people simply say “the ice is shrinking” we want to find out how the yearly cycle itself is changing, and how closely the summer loss follows temperature and CO<sub>2</sub>.
+
+
 ## The data
 
 | Dataset | Link | What is in it |
