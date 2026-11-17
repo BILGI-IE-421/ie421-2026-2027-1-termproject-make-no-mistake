@@ -11,8 +11,8 @@ Yağız Efe (122203062)
 
 ## Files (Explain each of them with a sentence)
 - `data/`: Contains the datasets used. (Define your datasets here. The full description goes in the data card, `data/README.md`. Raw downloads stay in `data/raw/` and are not committed.)
-- `scripts/`: Scripts for downloading, cleaning and plotting the data. `download_data.py` downloads the raw files into `data/raw/`; `preprocess.py` cleans them and writes the daily, monthly and yearly tables to `data/processed/`; `q1_days_below.py` counts the days per year below the 1980s September average (question 1); `q1_method_check.py` tests how question 1 fills the missing early days; `q1_onset.py` tests when the climb started (straight line vs. flat-then-rise, with detection and threshold checks).
-- `visuals/`: Includes the generated figures. `q1_days_below.png` shows the days per year below the 1980s September average, with a 5-year moving average; `q1_onset.png` shows the same counts with the straight-line and best flat-then-rise fits.
+- `scripts/`: Scripts for downloading, cleaning and plotting the data. `download_data.py` downloads the raw files into `data/raw/`; `preprocess.py` cleans them and writes the daily, monthly and yearly tables to `data/processed/`; `eda.ipynb` is the exploratory analysis (first contact, one variable at a time, relationships, findings); `q1_days_below.py` counts the days per year below the 1980s September average (question 1); `q1_method_check.py` tests how question 1 fills the missing early days; `q1_onset.py` tests when the climb started (straight line vs. flat-then-rise, with detection and threshold checks); `figures.py` makes the figures shown on the website.
+- `visuals/`: Includes the generated figures. On the website: `fig1_days_below.png` shows the days per year below the 1980s September average with the straight-line trend; `fig2_monthly_loss.png` compares the mean ice extent of each month in the 1980s and the 2010s. Analysis figures: `q1_days_below.png` shows the days per year below the 1980s September average, with a 5-year moving average; `q1_onset.png` shows the same counts with the straight-line and best flat-then-rise fits.
 - `index.html` and `css/`: Main webpage for GitHub Pages hosting.
 - `PROPOSAL.md`, `AI_USAGE.md`: Your proposal and your AI usage statement.
 - `requirements.txt`: Python libraries your scripts need.
@@ -24,9 +24,11 @@ List the commands that reproduce your results, in the order they must be run.
 pip install -r requirements.txt
 python scripts/download_data.py
 python scripts/preprocess.py
+jupyter nbconvert --to notebook --execute --inplace scripts/eda.ipynb
 python scripts/q1_days_below.py
 python scripts/q1_method_check.py
 python scripts/q1_onset.py
+python scripts/figures.py
 ```
 
 ## Key findings

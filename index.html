@@ -4,9 +4,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Shrinking Ice</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<main>
   <h1>The Shrinking Ice: is the Arctic losing its summer?</h1>
-  <p>IE 421 term project, team make-no-mistake. This page is a placeholder; figures and findings will be added here.</p>
+  <p class="subtitle">IE 421 Data Science for Engineers · Term project · Theme T5 Hot Planet</p>
+  <p class="team">Team make-no-mistake: Ada Güner Nohut, Canberk Doğruoğlu, Tümer Kaan Mutlu, Yağız Efe</p>
+
+  <p>
+    Arctic sea ice grows every winter and shrinks every summer. Satellites have measured this
+    yearly cycle since 1978. Most people know that the ice is shrinking; we ask how the
+    <em>cycle itself</em> is changing, and how closely the summer loss follows temperature and CO<sub>2</sub>.
+  </p>
+
+  <h2>1. The ice now spends about three months a year below its old summer low</h2>
+  <figure>
+    <img src="visuals/fig1_days_below.png"
+         alt="Bar chart of days per year with Arctic sea-ice extent below 7.21 million km², 1979 to 2025, rising from about 17 days a year in the 1980s to about 94 days a year in 2016-2025, with a straight-line trend of plus 21 days per decade.">
+  </figure>
+  <p class="takeaway">
+    Between 1979 and 1988, sea ice remained below the 1980s September average for 17 days per year;
+    by 2016–2025, this figure has reached 94 days per year, an increase of more than fivefold.
+  </p>
+  <p>
+    The threshold used is the average September sea ice extent from the 1980s (7.21 million km²),
+    the level the ice typically shrank to each September in the 1980s. Today, sea ice remains below
+    this level for approximately three months each year. The number of days below this threshold is
+    increasing at a rate of about 21 days per decade. A linear trend fits the data better than a model
+    suggesting a "delayed onset" of the increase; in other words, the increase has been ongoing since
+    the beginning of the satellite record, and by the early 1990s, it had surpassed the range of
+    typical year-to-year fluctuations. Until August 1987, measurements were taken every two days;
+    missing data points were interpolated from adjacent days, a process verified to alter the annual
+    counts by no more than two days.
+  </p>
+
+  <h2>2. Summer is losing ice much faster than winter</h2>
+  <figure>
+    <img src="visuals/fig2_monthly_loss.png"
+         alt="Grouped bar chart of mean Arctic sea-ice extent for each month, 1980s versus 2010s. Every month is lower in the 2010s; the loss is 35 percent in September and 7 percent in March.">
+  </figure>
+  <p class="takeaway">
+    Every month shows less sea ice compared to the 1980s; however, while September has seen a 35% loss,
+    March has experienced a decline of only 7%.
+  </p>
+  <p>
+    The winter maximum has decreased slightly, while the summer minimum has dropped significantly;
+    the gap between the two is widening, deepening the annual cycle. The most substantial losses occur
+    between July and October (ranging from 21% to 35%). For this reason, the remainder of the project
+    focuses on the summer season: if sea ice continues to decline more rapidly in the summer than in
+    the winter, more of the Arctic Ocean will stay open water for longer each year.
+  </p>
+
+  <h2>Data</h2>
+  <ul>
+    <li><a href="https://nsidc.org/data/seaice_index">NSIDC Sea Ice Index (G02135, version 4)</a>: daily Arctic sea-ice extent, 1978–today</li>
+    <li><a href="https://data.giss.nasa.gov/gistemp/">NASA GISTEMP v4</a>: monthly temperature anomalies, Northern Hemisphere and global</li>
+    <li><a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA Mauna Loa CO<sub>2</sub></a>: monthly mean CO<sub>2</sub></li>
+  </ul>
+  <p class="caption">
+    Code, data card and exploratory analysis:
+    <a href="https://github.com/BILGI-IE-421/ie421-2026-2027-1-termproject-make-no-mistake">project repository</a>.
+  </p>
+
+  <footer>
+    This page is a work in progress (Data &amp; EDA checkpoint, November 2026).
+  </footer>
+</main>
 </body>
 </html>

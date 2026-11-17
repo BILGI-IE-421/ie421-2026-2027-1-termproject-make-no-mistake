@@ -1,14 +1,42 @@
 # Data card
 
-One section like this for **every** dataset you use. Raw files larger than 50 MB are never committed; `scripts/download_data.py` recreates `data/raw/`. A filled-in example: https://github.com/BILGI-IE-421/demo-repository/blob/main/data/README.md
+This project uses four files from three sources: NSIDC sea ice (Dataset 1), NASA GISTEMP temperature for the Northern Hemisphere and the globe (Dataset 2), and NOAA CO₂ (Dataset 3). The final section explains how they are combined. The raw files are not included in the repository; the script `scripts/download_data.py` re-downloads them into the `data/raw/` folder.
 
-## Dataset 1: Dataset name (`file-name.csv`)
-- **Source and URL:**
-- **License:**
-- **Date accessed:**
-- **Time range and granularity:**
-- **Size:** rows x columns (raw); cleaned row count
-- **Columns used:**
-- **Known issues:**
-- **Cleaning decisions and why:**
-- **How to regenerate:**
+## Dataset 1: NSIDC Sea Ice Index G02135 v4.0 (`nsidc_arctic_daily_extent.csv`)
+- **Source and URL:** National Snow and Ice Data Center (NSIDC), Sea Ice Index G02135 v4.0, https://nsidc.org/data/seaice_index (file `N_seaice_extent_daily_v4.0.csv`). Daily Arctic sea ice extent from satellite measurements. We saved this file as `data/raw/nsidc_arctic_daily_extent.csv`.
+- **License:** The data are freely released by NSIDC; the only condition for its use is to cite the dataset. Citation: Fetterer, F., Knowles, K., Meier, W. N., Savoie, M., Windnagel, A. K. & Stafford, T. (2025). Sea Ice Index. (G02135, Version 4). [Data Set]. Boulder, Colorado USA. National Snow and Ice Data Center. https://doi.org/10.7265/a98x-0f50. Date Accessed 11-17-2026.
+- **Date accessed:** 17 November 2026
+- **Time range and granularity:** From 26 October 1978 to 16 November 2026, one row per day. Until 20 August 1987, measurements were taken every two days. For the analysis, we used the years 1979–2025.
+- **Size:** 15,903 rows × 6 columns (raw); cleaned: 15,903 daily rows (`data/processed/ice_daily.csv`, no rows dropped) and 578 monthly rows (`data/processed/ice_monthly.csv`).
+- **Columns used:** `Year`, `Month`, `Day` (date), `Extent` (million km²); `Missing` (always 0) and `Source Data` (file names only) not used.
+- **Known issues:** the second row of the file is a units row, not data; the column names and values have leading spaces; until 20 August 1987 measurements were taken every two days (about 183 days per year); there is no data from 3 December 1987 to 12 January 1988 (41 days); the 2026 data is incomplete; the v3 file is no longer available, so we use v4.
+- **Cleaning decisions and why:** the units row is skipped and leading spaces are removed (so that pandas reads the column names and numbers correctly); a single `date` column is built from `Year`, `Month` and `Day` (so that dates are parsed consistently and missing days can be found); `Missing` and `Source Data` columns are dropped (they carry no information); we checked for duplicate dates and none were found, so no rows were dropped; monthly means are computed with an `n_days` column showing how many days each month is based on (so that months based on only a few days are visible, e.g. December 1987 is based on only 2 days); in question 1, single-day gaps are filled using the average of the preceding and following days (a simple count would have halved the early-year figures, the method was tested and the maximum error was 2 days, see `scripts/q1_method_check.py`); the 41-day winter gap (3 December 1987 – 12 January 1988) is not filled (during winter the ice extent is well above the threshold, so this does not change the outcome, and filling such a long gap would amount to fabricating data); only complete years (1979–2025) are used in yearly calculations (1978 and 2026 are incomplete); years far from the trend (2012, 2007, 1996) are kept (they are real climate events, not measurement errors).
+- **How to regenerate:** `python scripts/download_data.py && python scripts/preprocess.py`
+
+## Dataset 2: NASA GISTEMP v4, Northern Hemisphere and global (`gistemp_nh_monthly.csv`, `gistemp_global_monthly.csv`)
+- **Source and URL:** NASA Goddard Institute for Space Studies, GISS Surface Temperature Analysis version 4 (GISTEMP v4), https://data.giss.nasa.gov/gistemp/ (files `NH.Ts+dSST.csv` and `GLB.Ts+dSST.csv`). Monthly temperature anomalies for the Northern Hemisphere and the globe. We saved these files as `data/raw/gistemp_nh_monthly.csv` and `data/raw/gistemp_global_monthly.csv`.
+- **License:** The data are freely released by NASA; the only condition for their use is to cite the webpage and the paper below. Citations: GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies. Dataset accessed 2026-11-17 at https://data.giss.nasa.gov/gistemp/; Lenssen, N., G.A. Schmidt, M. Hendrickson, P. Jacobs, M. Menne, and R. Ruedy, 2024: A GISTEMPv4 observational uncertainty ensemble. J. Geophys. Res. Atmos., 129, no. 17, e2023JD040179, doi:10.1029/2023JD040179.
+- **Date accessed:** 17 November 2026
+- **Time range and granularity:** January 1880 – October 2026, monthly. In the raw file, each row represents a year, with 12 months arranged in columns. The analysis covers the period 1979–2025.
+- **Size:** Each file contains 147 rows × 19 columns (raw). Cleaned: 1,762 monthly rows each.
+- **Columns used:** `Year` and `Jan` … `Dec` (°C; values represent the deviation (anomaly) from the 1951–1980 average); `J-D`, `D-N`, `DJF`, `MAM`, `JJA`, `SON` not used (these are the annual and seasonal averages calculated by NASA; we perform the calculations ourselves).
+- **Known issues:** the first line is not a header but a title ("Land-Ocean: Northern Hemispheric Means"); the table is in a wide format (each row is a year, with months in the columns); missing values are marked `***` (November and December 2026); NASA updates the file every month and may correct earlier months, so a file downloaded on a different day may differ slightly.
+- **Cleaning decisions and why:** the title line is skipped (the column names are in the second row); `***` is read as a missing value (so that pandas reads the numbers correctly); the table is reshaped with `melt` from one row per year to one row per month (so that it can be joined with the ice and CO₂ data by year and month); empty months are dropped (months with no value yet, the last two months of 2026); the spring average (March–May) is calculated from the monthly values instead of using NASA's seasonal columns (so that all calculations come from the same monthly data; checked: both give 0.90 for 2012); duplicate year-months were checked and none were found, so no rows were dropped.
+- **How to regenerate:** `python scripts/download_data.py && python scripts/preprocess.py`
+
+## Dataset 3: NOAA Mauna Loa monthly mean CO2 (`noaa_co2_monthly.csv`)
+- **Source and URL:** NOAA Global Monitoring Laboratory (GML), Mauna Loa Observatory, Hawaii, https://gml.noaa.gov/ccgg/trends/data.html (file `co2_mm_mlo.csv`). Monthly average atmospheric CO₂. We saved this file as `data/raw/noaa_co2_monthly.csv`.
+- **License:** The data are freely released by NOAA; the only condition for their use is to credit the data providers below. Citation: Dr. Xin Lan, NOAA/GML (gml.noaa.gov/ccgg/trends/) and Dr. Ralph Keeling, Scripps Institution of Oceanography (scrippsco2.ucsd.edu/).
+- **Date accessed:** 17 November 2026
+- **Time range and granularity:** March 1958 – September 2026, monthly. The analysis covers the period 1979–2025.
+- **Size:** 823 rows × 8 columns (raw); cleaned: 823 monthly rows (no rows dropped), 573 of them in the joined 1979–2026 table.
+- **Columns used:** `year`, `month`, `average` (ppm); `decimal date`, `deseasonalized`, `ndays`, `sdev`, `unc` not used (they are not needed for our analysis; we calculate the annual average ourselves from the monthly values).
+- **Known issues:** due to the eruption of the Mauna Loa volcano, measurements at the observatory were halted from 29 November 2022, and between December 2022 and 4 July 2023 they were taken at Maunakea, about 21 miles (34 km) to the north (this period falls within our analysis years); NOAA has filled in missing months using values from neighbouring periods and marked them with a negative number in the `sdev` column, and there is only one such month between 1979 and 2025: April 1984 (which contains data for only 2 days); at the beginning of the file there is a 40-line description starting with `#`; there are 195 months before 1976 with `ndays = -1`, meaning there is no daily data (outside our period of interest); data from March 1958 to April 1974 come from the Scripps Institution of Oceanography (outside our period of interest).
+- **Cleaning decisions and why:** `#` rows are skipped (they are descriptions, not data); only the `average` column is used (measured monthly averages, we calculate the annual average ourselves from the 12 months); the Maunakea period is kept (it is part of the official NOAA record, the measurement site is very close, and there are no jumps in the values: 417.47 ppm in November 2022, 418.99 ppm in December 2022); April 1984 is kept (a single month filled in by NOAA, its impact on the annual average is negligible); duplicate year-months were checked and none were found, so no rows were dropped.
+- **How to regenerate:** `python scripts/download_data.py && python scripts/preprocess.py`
+
+## Joining the datasets
+- **How:** the daily ice data were converted into monthly averages (so that all three sources use the same time unit, the month); the GISTEMP table was reshaped to one row per month (see Dataset 2); the three sources were merged on the `year` and `month` columns, keeping only the months present in all three datasets ("inner join"); only months from 1979 on are kept (the first full year of ice data).
+- **Result:** `data/processed/monthly_joined.csv`, 573 rows, January 1979 – September 2026; October and November 2026 are not included (the CO₂ data end in September 2026).
+- **Yearly table:** `data/processed/yearly.csv`, 47 rows, 1979–2025, including only years with a full 12 months of data; contents: September and March sea ice extent, Northern Hemisphere spring anomaly (average for March–May), annual anomaly for the Northern Hemisphere and the globe, and annual average CO₂.
+- **Checks:** no months were lost during the merge (January 1979 – September 2026 is 573 months, and the table has 573 rows); there are no duplicate year-month entries in the merged table; there are no empty cells in the merged or yearly tables.
