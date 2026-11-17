@@ -2,13 +2,13 @@
 
 One section like this for **every** dataset you use. Raw files larger than 50 MB are never committed; `scripts/download_data.py` recreates `data/raw/`. A filled-in example: https://github.com/BILGI-IE-421/demo-repository/blob/main/data/README.md
 
-## Dataset 1: Dataset name (`file-name.csv`)
-- **Source and URL:**
-- **License:**
-- **Date accessed:**
-- **Time range and granularity:**
-- **Size:** rows x columns (raw); cleaned row count
-- **Columns used:**
-- **Known issues:**
-- **Cleaning decisions and why:**
-- **How to regenerate:**
+## Dataset 1: NSIDC Sea Ice Index G02135 v4.0 (`nsidc_arctic_daily_extent.csv`)
+- **Source and URL:** National Snow and Ice Data Center (NSIDC), Sea Ice Index G02135 v4.0, https://nsidc.org/data/seaice_index (file `N_seaice_extent_daily_v4.0.csv`). Daily Arctic sea ice extent from satellite measurements. We saved this file as `data/raw/nsidc_arctic_daily_extent.csv`.
+- **License:** The data are freely released by NSIDC; the only condition for its use is to cite the dataset. Citation: Fetterer, F., Knowles, K., Meier, W. N., Savoie, M., Windnagel, A. K. & Stafford, T. (2025). Sea Ice Index. (G02135, Version 4). [Data Set]. Boulder, Colorado USA. National Snow and Ice Data Center. https://doi.org/10.7265/a98x-0f50. Date Accessed 11-17-2026.
+- **Date accessed:** 17 November 2026
+- **Time range and granularity:** From 26 October 1978 to 16 November 2026, one row per day. Until 20 August 1987, measurements were taken every two days. For the analysis, we used the years 1979–2025.
+- **Size:** 15,903 rows × 6 columns (raw); cleaned: 15,903 daily rows (`data/processed/ice_daily.csv`, no rows dropped) and 578 monthly rows (`data/processed/ice_monthly.csv`).
+- **Columns used:** `Year`, `Month`, `Day` (date), `Extent` (million km²); `Missing` (always 0) and `Source Data` (file names only) not used.
+- **Known issues:** the second row of the file is a units row, not data; the column names and values have leading spaces; until 20 August 1987 measurements were taken every two days (about 183 days per year); there is no data from 3 December 1987 to 12 January 1988 (41 days); the 2026 data is incomplete; the v3 file is no longer available, so we use v4.
+- **Cleaning decisions and why:** the units row is skipped and leading spaces are removed (so that pandas reads the column names and numbers correctly); a single `date` column is built from `Year`, `Month` and `Day` (so that dates are parsed consistently and missing days can be found); `Missing` and `Source Data` columns are dropped (they carry no information); we checked for duplicate dates and none were found, so no rows were dropped; monthly means are computed with an `n_days` column showing how many days each month is based on (so that months based on only a few days are visible, e.g. December 1987 is based on only 2 days); in question 1, single-day gaps are filled using the average of the preceding and following days (a simple count would have halved the early-year figures, the method was tested and the maximum error was 2 days, see `scripts/q1_method_check.py`); the 41-day winter gap (3 December 1987 – 12 January 1988) is not filled (during winter the ice extent is well above the threshold, so this does not change the outcome, and filling such a long gap would amount to fabricating data); only complete years (1979–2025) are used in yearly calculations (1978 and 2026 are incomplete); years far from the trend (2012, 2007, 1996) are kept (they are real climate events, not measurement errors).
+- **How to regenerate:** `python scripts/download_data.py && python scripts/preprocess.py`
