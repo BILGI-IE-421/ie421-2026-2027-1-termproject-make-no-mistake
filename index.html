@@ -4,9 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Shrinking Ice</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<main>
   <h1>The Shrinking Ice: is the Arctic losing its summer?</h1>
-  <p>IE 421 term project, team make-no-mistake. This page is a placeholder; figures and findings will be added here.</p>
+  <p class="subtitle">IE 421 Data Science for Engineers · Term project · Theme T5 Hot Planet</p>
+  <p class="team">Team make-no-mistake: Ada Güner Nohut, Canberk Doğruoğlu, Tümer Kaan Mutlu, Yağız Efe</p>
+
+  <p>
+    Arctic sea ice grows every winter and shrinks every summer. Satellites have measured this
+    yearly cycle since 1978. Most people know that the ice is shrinking; we ask how the
+    <em>cycle itself</em> is changing, and how closely the summer loss follows temperature and CO<sub>2</sub>.
+  </p>
+
+  <h2>1. The ice now spends about three months a year below its old summer low</h2>
+  <figure>
+    <img src="visuals/fig1_days_below.png"
+         alt="Bar chart of days per year with Arctic sea-ice extent below 7.21 million km², 1979 to 2025, rising from about 17 days a year in the 1980s to about 94 days a year in 2016-2025, with a straight-line trend of plus 21 days per decade.">
+  </figure>
+  <p class="takeaway">
+    In 1979–1988 the ice was smaller than the 1980s September average on 17 days a year;
+    in 2016–2025 it was smaller on 94 days a year, more than five times as often.
+  </p>
+  <p>
+    The threshold is the average September extent of the 1980s (7.21 million km²), the
+    smallest the ice used to get. Today the ice is below that level for about three months
+    every year. The count grows by about 21 days per decade. A straight line fits the
+    counts better than a model in which the rise starts late, so the climb has been going on since
+    the start of the satellite record; it became larger than the normal year-to-year
+    variation in the early 1990s. Before August 1987 the satellite measured only every
+    other day; we filled each missing day from its neighbours and tested that this changes
+    the yearly counts by at most 2 days.
+  </p>
+
+  <h2>2. Summer is losing ice much faster than winter</h2>
+  <figure>
+    <img src="visuals/fig2_monthly_loss.png"
+         alt="Grouped bar chart of mean Arctic sea-ice extent for each month, 1980s versus 2010s. Every month is lower in the 2010s; the loss is 35 percent in September and 7 percent in March.">
+  </figure>
+  <p class="takeaway">
+    Every month has less ice than in the 1980s, but September lost 35% while March lost only 7%.
+  </p>
+  <p>
+    The winter maximum has dropped only a little, but the summer minimum has dropped
+    a lot, so the gap between the two is growing: the yearly cycle is getting deeper. The
+    largest losses are from July to October (21–35%). This is why we focus on the summer in
+    the rest of the project: if the ice keeps losing summer faster than winter, the Arctic
+    ocean stays open for longer each year.
+  </p>
+
+  <h2>Data</h2>
+  <ul>
+    <li><a href="https://nsidc.org/data/seaice_index">NSIDC Sea Ice Index (G02135, version 4)</a>: daily Arctic sea-ice extent, 1978–today</li>
+    <li><a href="https://data.giss.nasa.gov/gistemp/">NASA GISTEMP v4</a>: monthly temperature anomalies, Northern Hemisphere and global</li>
+    <li><a href="https://gml.noaa.gov/ccgg/trends/data.html">NOAA Mauna Loa CO<sub>2</sub></a>: monthly mean CO<sub>2</sub></li>
+  </ul>
+  <p class="caption">
+    Code, data card and exploratory analysis:
+    <a href="https://github.com/BILGI-IE-421/ie421-2026-2027-1-termproject-make-no-mistake">project repository</a>.
+  </p>
+
+  <footer>
+    This page is a work in progress (Data &amp; EDA checkpoint, November 2026).
+  </footer>
+</main>
 </body>
 </html>
